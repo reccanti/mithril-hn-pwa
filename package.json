@@ -1,0 +1,9 @@
+{
+  "name": "mithril-hn-pwa",
+  "version": "0.0.1",
+  "description": "A progressive web app made using the Mithril framework",
+  "main": "index.js",
+  "repository": "git@github.com:reccanti/mithril-hn-pwa.git",
+  "author": "Ben Wilcox <reccanti@gmail.com>",
+  "license": "MIT"
+}
