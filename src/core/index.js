@@ -1,6 +1,12 @@
 import m from "mithril"
 import App from "./app.js"
 
+import TopStories from "./TopStoriesList"
+
 m.route(document.getElementById("app"), "/", {
-    "/": App
+    "/": {
+        render: () => {
+            return <App model={TopStories} />
+        }
+    }
 });
