@@ -2,20 +2,56 @@ import m from "mithril"
 import stream from "mithril/stream"
 import * as URLS from "../api/hn_urls"
 
+/**
+ * A function that loads the top stories list 
+ */
+function loadTopStoriesList(batchSize) {
+    return m.request({
+        method: "GET",
+        url: URLS.TOP_STORIES()
+    }).then(itemIds => {
+        
+        // partition list into batches
+        let partitions = []
+        let index = 0
+        while (index < itemIds.length) {
+            partitions.push(itemIds.slice(index, index + batchSize))
+            index += batchSize
+        }
+
+        // fetch the results from each partition
+        return Promise.all(partitions.map(batch => {
+            return fetchBatch(batch)
+        }))
+    }).then(itemBatches => {
+        return itemBatches.reduce((list, batch) => {
+            return list.concat(batch)
+        }, [])
+
+    })
+}
+
+/**
+ * Get the results of a batch of itemIds
+ * 
+ * @param {number[]} batch - an array of itemIds 
+ */
+function fetchBatch(batch) {
+    return Promise.all(batch.map(itemId => {
+        return m.request({
+            method: "GET",
+            url: URLS.ITEM(itemId)
+        })
+    }))
+}
+
 const TopStories = {
-    list: stream([]),
+    list: [],
     loadList: () => {
-         return m.request({
-             method: "GET",
-             url: URLS.TOP_STORIES()
-         }).then(itemids => {
-            return Promise.all(itemids.slice(0, 30).map(id => {
-                return m.request({
-                    "method": "GET",
-                    url: URLS.ITEM(id)
-                })
-            }))
-         }).then(TopStories.list)
+         loadTopStoriesList(5).then(items => {
+             console.log(items)
+             TopStories.list = items
+         })
     }
 }
 
@@ -25,7 +61,7 @@ const TopStories = {
 const ListView = {
     oninit: TopStories.loadList,
     view: vnode => {
-        const items = TopStories.list();
+        const items = TopStories.list;
         console.log(items);
         return [
             <div>
