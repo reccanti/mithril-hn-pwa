@@ -6,9 +6,7 @@ import stream from "mithril/stream"
  */
 const ListView = {
     view: vnode => {
-        console.log(vnode.attrs)
         const items = vnode.attrs.list;
-        console.log(items);
         return [
             <div>
                 <div>prev page next</div>

@@ -8,7 +8,6 @@ const TopStories = {
     list: [],
     loadList: () => {
          loadList(5, URLS.TOP_STORIES()).then(items => {
-             console.log(items)
              TopStories.list = items
          })
     }

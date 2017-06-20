@@ -10,6 +10,8 @@ function loadList(batchSize, url) {
         url: url
     }).then(itemIds => {
         
+        console.log(itemIds)
+        
         // partition list into batches
         let partitions = []
         let index = 0
