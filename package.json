@@ -26,8 +26,8 @@
   "scripts": {
     "start": "yarn run compile & yarn run serve:dev",
     "serve:dev": "nodemon dist/server/server.js",
-    "compile": "yarn run compile:client & yarn run compile:server",
+    "compile": "yarn run compile:client & yarn run compile:server -- -w",
     "compile:client": "webpack --config config/webpack.config.js --watch",
-    "compile:server": "babel src/server -d dist/server -w"
+    "compile:server": "babel src/server -d dist/server"
   }
 }
