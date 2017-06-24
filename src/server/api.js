@@ -42,19 +42,23 @@ function shapeOutput(item) {
 }
 
 /**
- * Fetches a list of stories from the API
+ * Retrieve a page of stories from the given base url
+ * 
+ * @param {string} base - the base url we use to retrieve firebase data from 
+ * @param {object} options - an options object. Accepts page # and number of items. Defaults to 1 and 30 respectively
+ * @param {function} fn - a callback function to be called on completion. Parameter 1 refers to errors while parameter 2 refers to responses
  */
-function stories(base, options, fn) {
+async function stories(base, options) {
     const opts = Object.assign({ page: 1, limit: 30 }, options);
     const limit = opts.limit;
     const page = opts.page;
     const startIndex = (page - 1) * limit;
     const endIndex = startIndex + limit;
-
     const stories = hn.child(base).limitToFirst(limit * page);
-    stories.once('value', snapshot => {
 
+    try {
         // get the subsection of itemIDs we want and convert them to promises
+        const snapshot = await stories.once('value');
         const items = snapshot.val().slice(startIndex, endIndex);
         const itemFetches = items.map(itemID => {
             return new Promise((resolve, reject) => {
@@ -66,14 +70,33 @@ function stories(base, options, fn) {
             });
         });
 
-        // fetch all items and perform the callback on them
-        Promise.all(itemFetches).then(res => {
-            const apiRes = res.filter(Boolean).map(item => {
+        // return the formatted responses fetched from the server
+        return Promise.all(itemFetches).then(res => {
+            return res.filter(Boolean).map(item => {
                 return shapeOutput(item);
-            });
-            fn(null, apiRes);
-        }).catch(err => fn(err));
-    });
+            })
+        });
+    } catch(e) {
+        console.error(e);
+    }
 }
 
-stories('topstories', {}, (err, res) => console.log(res));
+/**
+ * Retrieve a page of top stories
+ * 
+ * @param {object} options - an options object. Accepts page # and number of items. Defaults to 1 and 30 respectively
+ * @param {function} fn - a callback function to be called on completion. Parameter 1 refers to errors while parameter 2 refers to responses
+ */
+module.exports.topstories = async function topstories(options, fn) {
+    return await stories('topstories', options);
+}
+
+/**
+ * Retrieve a page of new stories
+ * 
+ * @param {object} options - an options object. Accepts page # and number of items. Defaults to 1 and 30 respectively
+ * @param {function} fn - a callback function to be called on completion. Parameter 1 refers to errors while parameter 2 refers to responses
+ */
+module.exports.newstories = async function newstories(options, fn) {
+    return await stories('newstories', options);
+}
