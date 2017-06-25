@@ -1,5 +1,4 @@
 import m from "mithril"
-import ListView from "./ListView"
 import TopNav from "./TopNav"
 
 /**

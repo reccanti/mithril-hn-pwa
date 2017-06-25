@@ -1,14 +1,16 @@
 // disable dom check on node server
-// require('mithril/test-utils/browserMock')(global);
+require('mithril/test-utils/browserMock')(global);
 // const path = require('path');
 
-// const m = require('mithril')
-// const render = require('mithril-node-render')
-// const serve = require('koa-static')
+const m = require('mithril')
+const render = require('mithril-node-render')
+const serve = require('koa-static')
+
 const Koa = require('koa');
 const json = require('koa-json');
 const Router = require('koa-router');
 const hnAPI = require('./api');
+const Layout = require('./layout');
 
 const app = new Koa();
 const appAPI = new Router();
@@ -27,10 +29,16 @@ appAPI.get('/newstories', async ctx => {
         params.page = ctx.query.page;
     ctx.body = await hnAPI.newstories(params);
 })
-routes.use('/api', appAPI.routes(), appAPI.allowedMethods())
+routes.use('/api', appAPI.routes(), appAPI.allowedMethods());
+routes.get('/', async ctx => {
+    const bodyHTML = await render(<Layout />);
+    ctx.body = `<!DOCTYPE html>${bodyHTML}`;
+})
 
+// declare the app
 app.use(json());
-app.use(appAPI.routes());
+app.use(routes.routes());
+app.use(serve('dist/static'));
 
 console.log("listening at localhost:8000")
 app.listen(8000);

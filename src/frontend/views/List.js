@@ -1,12 +1,14 @@
 import m from "mithril"
-import stream from "mithril/stream"
 
 /**
  * A mithril component that stores a list view for the site
  */
-const ListView = {
+const List = {
+    oninit: vnode => {
+        vnode.attrs.model.loadList();
+    },
     view: vnode => {
-        const items = vnode.attrs.list;
+        const items = vnode.attrs.model.list;
         return [
             <div>
                 <div>prev page next</div>
@@ -18,4 +20,4 @@ const ListView = {
     }
 }
 
-export default ListView
+export default List
