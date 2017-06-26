@@ -1,17 +1,17 @@
 import m from "mithril";
 
 /**
- * A model to store the Top Stories list
+ * A model to store the New Stories list
  */
-const topstories = {
+const newstories = {
     list: [],
     loadList: async () => {
         return await m.request({
             method: "GET",
             background: true,
-            url: "http://localhost:8000/api/"
+            url: "http://localhost:8000/api/newstories"
         });
     }
 };
 
-export default topstories;
+export default newstories;
