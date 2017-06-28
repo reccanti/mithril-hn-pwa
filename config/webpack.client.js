@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
     entry: './src/frontend/index.js',
+    devtool: 'source-map',
     output: {
         path: path.resolve('./dist/static'),
         filename: 'bundle.js'

@@ -6,9 +6,8 @@ import m from "mithril";
 const newstories = {
     list: [],
     loadList: async () => {
-        return await m.request({
+        newstories.list = await m.request({
             method: "GET",
-            background: true,
             url: "http://localhost:8000/api/newstories"
         });
     }

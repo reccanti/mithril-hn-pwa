@@ -12,7 +12,7 @@ import newstories from "../models/newstories";
  */
 const routes = {
     "/": {
-        render: () => {
+        view: () => {
             return (
                 <App>
                     <List model={topstories} />
@@ -21,7 +21,7 @@ const routes = {
         }
     },
     "/newest": {
-        render: () => {
+        view: () => {
             return (
                 <App>
                     <List model={newstories} />
