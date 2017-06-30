@@ -1,9 +1,9 @@
-import m from 'mithril';
-import App from "../views/App";
-import List from "../views/List";
+const m = require('mithril');
+const App = require( "../../frontend/views/App");
+const List = require("../../frontend/views/List");
 
-import topstories from "../models/topstories";
-import newstories from "../models/newstories";
+const topstories = require("../../frontend/models/topstories");
+const newstories = require("../../frontend/models/newstories");
 
 /**
  * This defines how each route will be rendered.
@@ -31,4 +31,4 @@ const routes = {
     },
 }
 
-export default routes;
+module.exports = routes;

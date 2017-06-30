@@ -11,6 +11,7 @@ const List = {
         m.redraw();
     },
     view: vnode => {
+        console.log(vnode.attrs.model.list);
         return [
             <div>
                 <div>prev page next</div>

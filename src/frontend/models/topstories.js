@@ -1,4 +1,5 @@
 import m from "mithril";
+import 'isomorphic-fetch';
 
 /**
  * A model to store the Top Stories list
@@ -6,10 +7,15 @@ import m from "mithril";
 const topstories = {
     list: [],
     loadList: async () => {
-        topstories.list = await m.request({
-            method: "GET",
-            url: "http://localhost:8000/api/"
-        });
+        try {
+            const res = await fetch("http://localhost:8000/api/", { method: "GET" });
+            const json = await res.json();
+            topstories.list = json;
+            console.log(topstories.list);
+        } catch (e) {
+            console.error(e);
+            topstories.list = [];
+        }
     }
 };
 

@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "firebase": "^4.1.2",
+    "isomorphic-fetch": "^2.2.1",
     "koa": "^2.2.0",
     "koa-json": "^2.0.2",
     "koa-router": "^7.2.1",
@@ -19,6 +20,8 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.5.2",
     "nodemon": "^1.11.0",
@@ -26,9 +29,9 @@
   },
   "scripts": {
     "start": "yarn run compile & yarn run serve:dev",
-    "serve:dev": "nodemon dist/server/server.js",
+    "serve:dev": "nodemon dist/server/server/server.js",
     "compile": "yarn run compile:client & yarn run compile:server -- -w",
     "compile:client": "webpack --config config/webpack.config.js --watch",
-    "compile:server": "babel src/server -d dist/server"
+    "compile:server": "babel src -d dist/server"
   }
 }

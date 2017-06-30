@@ -11,6 +11,8 @@ const json = require('koa-json');
 const Router = require('koa-router');
 const hnAPI = require('./api');
 const Layout = require('./layout');
+const webRoutes = require('./routes');
+console.log(webRoutes);
 
 const app = new Koa();
 const appAPI = new Router();
@@ -30,6 +32,7 @@ appAPI.get('/newstories', async ctx => {
     ctx.body = await hnAPI.newstories(params);
 })
 routes.use('/api', appAPI.routes(), appAPI.allowedMethods());
+routes.use('/', webRoutes.routes(), webRoutes.allowedMethods());
 routes.get('/', async ctx => {
     const bodyHTML = await render(<Layout />);
     ctx.body = `<!DOCTYPE html>${bodyHTML}`;

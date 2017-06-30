@@ -1,5 +1,5 @@
 import m from "mithril";
-import routes from './routes/routes';
+import routes from '../common/routes/routes';
 
 
 // import TopStoriesListView from "./TopStoriesListView"
