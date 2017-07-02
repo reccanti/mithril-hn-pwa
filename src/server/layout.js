@@ -10,7 +10,9 @@ const Layout = {
                     <title>Mithril App</title>
                 </head>
                 <body>
-                    <div id="app"></div>
+                    <div id="app">
+                        { vnode.children }
+                    </div>
                     <script src="/bundle.js"></script>
                 </body>
             </html>

@@ -11,7 +11,7 @@ const topstories = {
             const res = await fetch("http://localhost:8000/api/", { method: "GET" });
             const json = await res.json();
             topstories.list = json;
-            console.log(topstories.list);
+            m.redraw();
         } catch (e) {
             console.error(e);
             topstories.list = [];

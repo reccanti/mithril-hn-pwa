@@ -4,14 +4,10 @@ import m from "mithril"
  * A mithril component that stores a list view for the site
  */
 const List = {
-    oninit: vnode => {
-        vnode.attrs.model.loadList();
-    },
-    onupdate: vnode => {
-        m.redraw();
+    oninit: async vnode => {
+        await vnode.attrs.model.loadList();
     },
     view: vnode => {
-        console.log(vnode.attrs.model.list);
         return [
             <div>
                 <div>prev page next</div>

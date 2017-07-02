@@ -3,6 +3,7 @@ const m = require('mithril')
 const render = require('mithril-node-render')
 const Router = require('koa-router');
 
+const Layout = require('./layout');
 const mithrilRoutes = require('../common/routes/routes');
 
 /**
@@ -15,9 +16,9 @@ function generateRoutes() {
     const router = new Router();
     Object.keys(mithrilRoutes).forEach(route => {
         router.get(route, async ctx => {
-            const component = mithrilRoutes[route];
-            ctx.body = await render(component);
-            console.log(ctx.body);
+            const Component = mithrilRoutes[route];
+            let bodyHTML = await render(<Layout><Component /></Layout>);
+            ctx.body = `<!DOCTYPE html>${bodyHTML}`
         });
     });
     return router;
