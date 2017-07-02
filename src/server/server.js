@@ -32,7 +32,9 @@ appAPI.get('/newstories', async ctx => {
 });
 
 routes.use('/api', appAPI.routes(), appAPI.allowedMethods());
-routes.use('/', webRoutes.routes(), webRoutes.allowedMethods());
+routes.use('', webRoutes.routes(), webRoutes.allowedMethods());
+
+console.log(routes.stack.map(i => console.log(i.path)));
 
 // declare the app
 app.use(json());

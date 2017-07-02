@@ -2,6 +2,10 @@
 require('mithril/test-utils/browserMock')(global);
 const m = require("mithril")
 
+/**
+ * This component describes the overall layout of the app
+ * when it is rendered on the server. 
+ */
 const Layout = {
     view: vnode => {
         return [

@@ -1,22 +1,7 @@
-import m from "mithril";
-import 'isomorphic-fetch';
+import List from './list'
 
 /**
  * A model to store the Top Stories list
  */
-const topstories = {
-    list: [],
-    loadList: async () => {
-        try {
-            const res = await fetch("http://localhost:8000/api/", { method: "GET" });
-            const json = await res.json();
-            topstories.list = json;
-            m.redraw();
-        } catch (e) {
-            console.error(e);
-            topstories.list = [];
-        }
-    }
-};
-
+const topstories = new List("http://localhost:8000/api/");
 export default topstories;
