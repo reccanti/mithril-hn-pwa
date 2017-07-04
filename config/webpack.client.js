@@ -1,4 +1,5 @@
-const path = require('path')
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
     entry: './src/frontend/index.js',
@@ -17,5 +18,8 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+    plugins: [
+        new webpack.EnvironmentPlugin(['NOW_URL'])
+    ]
 }

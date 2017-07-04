@@ -3,7 +3,7 @@ const m = require('mithril')
 const render = require('mithril-node-render')
 const Router = require('koa-router');
 
-const Layout = require('./layout');
+const Layout = require('./Layout');
 const mithrilRoutes = require('../common/routes/routes');
 
 /**

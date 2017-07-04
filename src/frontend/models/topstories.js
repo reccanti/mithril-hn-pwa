@@ -3,5 +3,5 @@ import List from './list'
 /**
  * A model to store the Top Stories list
  */
-const topstories = new List("http://localhost:8000/api/");
+const topstories = new List('/api/');
 export default topstories;

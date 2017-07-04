@@ -1,6 +1,8 @@
 import m from "mithril";
 import 'isomorphic-fetch';
 
+let apibase = process.env.NOW_URL || "http://localhost:8000";
+
 /**
  * A factory class that defines an object that fetches
  * data from an endpoint and stores it in a list;
@@ -21,7 +23,7 @@ class List {
      */
     async loadList() {
         try {
-            const res = await fetch(this.endpoint, { method: "GET" });
+            const res = await fetch(`${apibase}${this.endpoint}`, { method: "GET" });
             const json = await res.json();
             this.list = json;
             m.redraw();
@@ -33,36 +35,5 @@ class List {
 
 
 }
-// function listModel(endpoint) {
-//     return {
-//         list: [],
-//         loadList: async () => {
-//             try {
-//                 const res = await fetch(endpoint, { method: "GET" });
-//                 const json = await res.json();
-//                 this.list = json;
-//                 m.redraw();
-//             } catch (e) {
-//                 console.error(e);
-//                 this.list = [];
-//             }
-//         }
-//     }
-// }
-
-// const topstories = {
-//     list: [],
-//     loadList: async () => {
-//         try {
-//             const res = await fetch("http://localhost:8000/api/", { method: "GET" });
-//             const json = await res.json();
-//             topstories.list = json;
-//             m.redraw();
-//         } catch (e) {
-//             console.error(e);
-//             topstories.list = [];
-//         }
-//     }
-// };
 
 export default List;
