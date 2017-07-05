@@ -36,6 +36,12 @@ appAPI.get('/newstories', async ctx => {
         params.page = ctx.query.page;
     ctx.body = await hnAPI.newstories(params);
 });
+appAPI.get('/askstories', async ctx => {
+    let params = {};
+    if (ctx.query.page)
+        params.page = ctx.query.page;
+    ctx.body = await hnAPI.askstories(params);
+});
 
 routes.use('/api', appAPI.routes(), appAPI.allowedMethods());
 routes.use('', webRoutes.routes(), webRoutes.allowedMethods());

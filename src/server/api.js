@@ -100,3 +100,13 @@ module.exports.topstories = async function topstories(options, fn) {
 module.exports.newstories = async function newstories(options, fn) {
     return await stories('newstories', options);
 }
+
+/**
+ * Retrieve a page of asks
+ * 
+ * @param {object} options - an options object. Accepts page # and number of items. Defaults to 1 and 30 respectively
+ * @param {function} fn - a callback function to be called on completion. Parameter 1 refers to errors while parameter 2 refers to responses
+ */
+module.exports.askstories = async function askstories(options, fn) {
+    return await stories('askstories', options);
+}
