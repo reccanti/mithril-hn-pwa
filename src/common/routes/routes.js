@@ -5,6 +5,7 @@ const List = require("../../frontend/views/List");
 const topstories = require("../../frontend/models/topstories");
 const newstories = require("../../frontend/models/newstories");
 const askstories = require("../../frontend/models/askstories");
+const showstories = require("../../frontend/models/showstories");
 
 /**
  * This defines how each route will be rendered.
@@ -35,6 +36,15 @@ const routes = {
             return (
                 <App>
                     <List model={askstories} />
+                </App>
+            );
+        }
+    },
+    "/show": {
+        view: () => {
+            return (
+                <App>
+                    <List model={showstories} />
                 </App>
             );
         }

@@ -8,43 +8,13 @@ const serve = require('koa-static')
 
 const Koa = require('koa');
 const json = require('koa-json');
-const Router = require('koa-router');
+// const Router = require('koa-router');
 const Session = require('koa-session');
 const cors = require('kcors');
 const hnAPI = require('./api');
-const webRoutes = require('./routes');
+const routes = require('./routes');
 
 const app = new Koa();
-const appAPI = new Router();
-const routes = new Router();
-
-// declare session config
-// const CONFIG = {
-//     API_BASE: process.env.NOW_URL || 'localhost:8000'
-// }
-
-// declare routes 
-appAPI.get('/', async ctx => {
-    let params = {};
-    if (ctx.query.page)
-        params.page = ctx.query.page;
-    ctx.body = await hnAPI.topstories(params);
-});
-appAPI.get('/newstories', async ctx => {
-    let params = {};
-    if (ctx.query.page)
-        params.page = ctx.query.page;
-    ctx.body = await hnAPI.newstories(params);
-});
-appAPI.get('/askstories', async ctx => {
-    let params = {};
-    if (ctx.query.page)
-        params.page = ctx.query.page;
-    ctx.body = await hnAPI.askstories(params);
-});
-
-routes.use('/api', appAPI.routes(), appAPI.allowedMethods());
-routes.use('', webRoutes.routes(), webRoutes.allowedMethods());
 
 // console.log(routes.stack.map(i => console.log(i.path)));
 
