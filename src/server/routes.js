@@ -4,6 +4,7 @@ const render = require('mithril-node-render')
 const Router = require('koa-router');
 const Layout = require('./Layout');
 const mithrilRoutes = require('../common/routes/routes');
+const hnAPI = require('./api');
 
 const apiRoutes = new Router();
 const routes = new Router();
@@ -26,6 +27,18 @@ apiRoutes.get('/askstories', async ctx => {
     if (ctx.query.page)
         params.page = ctx.query.page;
     ctx.body = await hnAPI.askstories(params);
+});
+apiRoutes.get('/showstories', async ctx => {
+    let params = {};
+    if (ctx.query.page)
+        params.page = ctx.query.page;
+    ctx.body = await hnAPI.showstories(params);
+});
+apiRoutes.get('/jobstories', async ctx => {
+    let params = {};
+    if (ctx.query.page)
+        params.page = ctx.query.page;
+    ctx.body = await hnAPI.jobstories(params);
 });
 
 

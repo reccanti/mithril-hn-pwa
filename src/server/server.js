@@ -1,6 +1,5 @@
 // disable dom check on node server
 require('mithril/test-utils/browserMock')(global);
-// const path = require('path');
 
 const m = require('mithril')
 const render = require('mithril-node-render')
@@ -8,18 +7,13 @@ const serve = require('koa-static')
 
 const Koa = require('koa');
 const json = require('koa-json');
-// const Router = require('koa-router');
 const Session = require('koa-session');
 const cors = require('kcors');
-const hnAPI = require('./api');
 const routes = require('./routes');
 
 const app = new Koa();
 
-// console.log(routes.stack.map(i => console.log(i.path)));
-
 // declare the app
-// app.use(Session(CONFIG, app));
 const corsURL = process.env.NOW_URL ? "https://mithril-hn-pwa.now.sh" : "http://localhost:8000";
 app.use(cors({
     origin: corsURL
